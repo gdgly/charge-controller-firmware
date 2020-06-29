@@ -149,6 +149,10 @@ void daq_update()
     // calculate lower voltage first, as it is needed for PWM terminal voltage calculation
     lv_bus.voltage = adc_scaled(ADC_POS(v_low), vref, ADC_GAIN(v_low));
 
+    //printf("Vbat: ADC: %d = %.2fmV (vref = %d), scaled: %.3f\n",
+    //    adc_value(ADC_POS(v_low)), adc_voltage(ADC_POS(v_low), vref), vref,
+    //    adc_scaled(ADC_POS(v_low), vref, ADC_GAIN(V_LOW)));
+
 #if DT_NODE_EXISTS(DT_PATH(dcdc))
     hv_bus.voltage = adc_scaled(ADC_POS(v_high), vref, ADC_GAIN(v_high));
 #endif

@@ -180,11 +180,14 @@ static void adc_init(ADC_TypeDef *adc)
     LL_ADC_SetCommonClock(__LL_ADC_COMMON_INSTANCE(adc), LL_ADC_CLOCK_SYNC_PCLK_DIV4);
 #elif defined(CONFIG_SOC_SERIES_STM32G4X)
     LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_ADC12);
+//    LL_RCC_SetADCClockSource(LL_RCC_ADC12_CLKSOURCE_PLL);
+    LL_RCC_SetADCClockSource(LL_RCC_ADC12_CLKSOURCE_SYSCLK);
     // Prepare for ADC calibration
     LL_ADC_DisableDeepPowerDown(adc);
     LL_ADC_EnableInternalRegulator(adc);
     k_busy_wait(LL_ADC_DELAY_INTERNAL_REGUL_STAB_US);
-    LL_ADC_SetCommonClock(__LL_ADC_COMMON_INSTANCE(adc), LL_ADC_CLOCK_SYNC_PCLK_DIV4);
+//    LL_ADC_SetCommonClock(__LL_ADC_COMMON_INSTANCE(adc), LL_ADC_CLOCK_SYNC_PCLK_DIV4);
+    LL_ADC_SetCommonClock(__LL_ADC_COMMON_INSTANCE(adc), LL_ADC_CLOCK_ASYNC_DIV1);
 #endif
 
 #if defined(CONFIG_SOC_SERIES_STM32G4X)
